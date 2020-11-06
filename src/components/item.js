@@ -12,8 +12,8 @@ class Item extends Component {
                 <li style={style} onClick={onChangeActive}
                     className={"list-group-item " + (active ? 'active' : "")}>{label}
                 </li>
-                <button style={{float: "right"}} onClick={onDeleteItem} className="btn btn-danger">x</button>
-                <button style={{float: "right", marginRight: "10px"}} className="btn btn-success"
+                <button style={{float: "right",margin: "10px 0 10px 10px"}} onClick={onDeleteItem} className="btn btn-danger">x</button>
+                <button style={{float: "right", margin: "10px 0 10px 10px"}} className="btn btn-success"
                         onClick={onChangeDone}>!
                 </button>
             </div>

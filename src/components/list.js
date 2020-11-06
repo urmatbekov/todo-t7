@@ -1,7 +1,11 @@
 import Item from "./item";
-import React, {Component} from "react";
+import React, {Component, Fragment,useRef} from "react";
+import Form from "./form";
 
 class List extends Component {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+
 
     state = {
         data: [
@@ -10,6 +14,8 @@ class List extends Component {
             {id: 114, label: "Clean a new-book", active: false, done: false},
         ]
     }
+
+    startId = 1000
 
     onChangeActive = (id) => () => {
         this.setState(({data}) => {
@@ -40,16 +46,27 @@ class List extends Component {
         })
     }
 
+    addItem = (label) => {
+        this.setState(({data}) => {
+            this.startId++
+            const item = {id: this.startId, label, active: false, done: false}
+            return {data: [...data, item]}
+        })
+    }
+
     render() {
         return (
-            <ul className="list-group">
-                {this.state.data.map((item) => {
-                    return <Item onChangeDone={this.onChangeDone(item.id)}
-                                 onChangeActive={this.onChangeActive(item.id)}
-                                 onDeleteItem={this.onDeleteItem(item.id)}
-                                 key={item.id} {...item}/>
-                })}
-            </ul>
+            <Fragment>
+                <Form addItem={this.addItem}/>
+                <ul className="list-group">
+                    {this.state.data.map((item) => {
+                        return <Item onChangeDone={this.onChangeDone(item.id)}
+                                     onChangeActive={this.onChangeActive(item.id)}
+                                     onDeleteItem={this.onDeleteItem(item.id)}
+                                     key={item.id} {...item}/>
+                    })}
+                </ul>
+            </Fragment>
         )
     }
 }
